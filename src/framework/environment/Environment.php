@@ -42,7 +42,7 @@ abstract class Environment
         /*
          * Levanta el archivo de configuración de la aplicación
          */
-        $appConfig;
+        $appConfig = [];
         include_once self::path( $pathConfig );
         self::$appConfig = $appConfig;
         
@@ -73,6 +73,20 @@ abstract class Environment
         }
         return self::path( $path );
     }
+
+    /**
+     * 
+     * @return string
+     */
+    static public function urlHost(): string
+    {
+        $url = '';
+        if( isset( self::$appConfig[ 'url-host' ] ) )
+        {
+            $url = self::$appConfig[ 'url-host' ];
+        }
+        return $url;
+    }
     
     /**
      * Retorna una conexión a la base de datos.
@@ -80,7 +94,7 @@ abstract class Environment
      */
     static public function dbConnection(): ?PDO
     {
-        $conn = NULL;
+        $conexion = NULL;
         if ( self::$appConfig[ 'db' ] )
         {
             $dns = self::$appConfig[ 'db' ][ 'dns' ];
@@ -88,8 +102,8 @@ abstract class Environment
             $password = self::$appConfig[ 'db' ][ 'password' ];
             try
             {
-                $conn = new PDO( $dns, $username, $password );
-                $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+                $conexion = new PDO( $dns, $username, $password );
+                $conexion->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
             }
             catch ( PDOException $e )
             {
@@ -126,39 +140,14 @@ abstract class Environment
         }
         return self::urlbase();
     }
-    
+
     /**
-     * Esta función devuelve la URL completa, incluyendo al protocolo y el host en casos
-     * donde `$_SERVER['HTTP_HOST']` no esté configurado o cuando se está detrás de un proxy.
-     * @link https://es.stackoverflow.com/questions/49890/c%C3%B3mo-obtener-la-url-completa-en-php
+     * 
      * @return string
      */
-    static private function urlbase( $forwarded_host = false ) : string
+    static public function urlbase() : string
     {
-        $ssl   = !empty( $_SERVER[ 'HTTPS' ] ) && $_SERVER[ 'HTTPS' ] == 'on';
-        $proto = strtolower( $_SERVER[ 'SERVER_PROTOCOL' ] );
-        $proto = substr( $proto, 0, strpos( $proto, '/' ) ) . ( $ssl ? 's' : '' );
-        if  ($forwarded_host && isset( $_SERVER[ 'HTTP_X_FORWARDED_HOST' ] ) )
-        {
-            $host = $_SERVER[ 'HTTP_X_FORWARDED_HOST' ];
-        }
-        else
-        {
-            if ( isset( $_SERVER[ 'HTTP_HOST' ] ) )
-            {
-                $host = $_SERVER[ 'HTTP_HOST' ];
-            }
-            else
-            {
-                $port = $_SERVER[ 'SERVER_PORT' ];
-                $port = ( ( !$ssl && $port == '80' ) || ( $ssl && $port == '443' ) ) ? '' : ':' . $port;
-                $host = $_SERVER[ 'SERVER_NAME' ] . $port;
-            }
-        }
-        $request = $_SERVER[ 'REQUEST_URI' ];
-        
-        $request = substr( $request , 0, strlen( $request ) -1 );
-        return "{$proto}://{$host}{$request}";
+        return self::urlHost().'/';
     }
     
     /**

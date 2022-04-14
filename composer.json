@@ -9,7 +9,7 @@
 			"email": "maximo.perez@davinci.edu.ar"
 		}
 	],
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"minimum-stability": "stable",
 	"autoload": {
 		"psr-4": {
