@@ -90,25 +90,22 @@ abstract class Environment
     
     /**
      * Retorna una conexión a la base de datos.
-     * @return PDO|NULL
+     * En caso de no poder obtener una conexión lanza una exception.
+     * 
+     * @throws PDOException
+     * @return PDO
      */
-    static public function dbConnection(): ?PDO
+    static public function dbConnection(): PDO
     {
         $conexion = NULL;
         if ( self::$appConfig[ 'db' ] )
         {
-            $dns = self::$appConfig[ 'db' ][ 'dns' ];
-            $username = self::$appConfig[ 'db' ][ 'username' ];
-            $password = self::$appConfig[ 'db' ][ 'password' ];
-            try
-            {
-                $conexion = new PDO( $dns, $username, $password );
-                $conexion->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-            }
-            catch ( PDOException $e )
-            {
-                self::console( $e->getMessage() );
-            }
+            $conexion = new PDO( 
+                self::$appConfig[ 'db' ][ 'dns' ], 
+                self::$appConfig[ 'db' ][ 'username' ], 
+                self::$appConfig[ 'db' ][ 'password' ]
+            );
+            $conexion->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
         }
         return $conexion;
     }
