@@ -115,7 +115,7 @@ abstract class Environment
      * @param string $extension
      * @return string
      */
-    static public function path( ?string $extension ): string
+    static public function path( string $extension = NULL ): string
     {
         if ( isset( $extension ) )
         {
