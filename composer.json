@@ -1,25 +1,40 @@
 {
-	"name": "maximo-perez-villalba/framework-environment",
-	"description": "El componente implementa una arquitectura liviana de control del ambiente de ejecución PHP, con fines pedagógicos.",
-	"type": "library",
-	"license": "proprietary",
-	"authors": [
-		{
-			"name": "Máximo Perez Villalba",
-			"email": "maximo.perez@davinci.edu.ar"
-		}
-	],
-	"version": "1.1.2",
-	"minimum-stability": "stable",
-	"autoload": {
-		"psr-4": {
-			"framework\\": "src/framework/"
-		}
-	},
-	"autoload-dev": {},
-	"require": {
-		"php": ">=7.4"
-	},
-	"require-dev": {},
-	"prefer-stable": true
+    "name": "maximo-perez-villalba/framework-environment",
+    "description": "El componente implementa una arquitectura liviana de control del ambiente de ejecución PHP, con fines pedagógicos.",
+    "type": "library",
+    "license": "proprietary",
+    "authors": 
+    [
+        {
+            "name": "Máximo Perez Villalba",
+            "email": "maximo.perez@davinci.edu.ar"
+        }
+    ],
+    "version": "2.0.0",
+    "minimum-stability": "stable",
+    "autoload": 
+    {
+        "psr-4": 
+        {
+            "MPV\\Framework\\": "src/MPV/Framework/"
+        }
+    },
+    "autoload-dev": 
+    {
+        "psr-4": 
+        {
+            "Test\\MPV\\Framework\\": "tests/Test/MPV/Framework/"
+        }
+    },
+    "require": 
+    {
+        "php": ">=8.1",
+        "maximo-perez-villalba/tool-txt": ">=1"
+    },
+    "require-dev": 
+    {
+        "larapack/dd": ">=1.1",
+        "phpunit/phpunit": "^9.5"        
+    },
+    "prefer-stable": true
 }

@@ -2,3 +2,7 @@
 /.buildpath
 /.project
 /composer.lock
+/nbproject/*
+/vendor/
+/tests/resources/*.log
+/tests/resources/*.db
