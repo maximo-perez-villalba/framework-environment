@@ -16,6 +16,6 @@ $appConfig =
     ],
     'attributes' =>
     [
-        'attrName' => 'attrValueTypeString'
+        'attr-name' => 'attrValueTypeString'
     ]
 ];

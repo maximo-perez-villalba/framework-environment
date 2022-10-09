@@ -127,4 +127,10 @@ class EnvironmentTest extends TestCase
         $this->assertIsObject($connection);
     }
     
+    public function testAttributes()
+    {
+        Env::init("{$this->resourcesPath}/app-config-attributes.php");
+
+        $this->assertEquals('attrValueTypeString', Env::attr('attr-name'));        
+    }
 }

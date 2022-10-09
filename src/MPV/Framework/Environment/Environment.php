@@ -114,7 +114,7 @@ abstract class Environment
         {
             $content .= $value;
         }
-        elseif(is_array($value) || is_object($value)) 
+        elseif(is_object($value)) 
         {
             $content .= json_encode($value, JSON_PRETTY_PRINT);
         }
@@ -126,6 +126,15 @@ abstract class Environment
     }
 
     /**
+     * @param string $key
+     * @return string|null
+     */
+    public static function attr(string $key): ?string
+    {
+        return self::config()->attr($key);
+    }
+
+     /**
      * Retorna una conexión a la base de datos.
      * En caso de no poder obtener una conexión lanza una exception.
      * 
