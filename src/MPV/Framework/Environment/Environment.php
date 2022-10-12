@@ -127,9 +127,9 @@ abstract class Environment
 
     /**
      * @param string $key
-     * @return string|null
+     * @return null|string|array
      */
-    public static function attr(string $key): ?string
+    public static function attr(string $key): null|string|array
     {
         return self::config()->attr($key);
     }

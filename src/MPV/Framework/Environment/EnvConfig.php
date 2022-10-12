@@ -174,14 +174,14 @@ class EnvConfig implements Stringable, JsonSerializable
 
     /**
      * @param string $key
-     * @return string|null
+     * @return null|array|string
      */
-    public function attr(string $key): ?string
+    public function attr(string $key): null|array|string
     {
         $response = NULL;
         if($this->hasAttributes() && isset($this->appConfig['attributes'][$key]))
         {
-            $response = (string)$this->appConfig['attributes'][$key];
+            $response = $this->appConfig['attributes'][$key];
         }
         return $response;
     }
