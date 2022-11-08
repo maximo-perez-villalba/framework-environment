@@ -156,7 +156,7 @@ abstract class Environment
                 {
                     $dnsValue = $txtdns->lastPart('::');
                 }
-                self::dnsSqlite3Adapter($dnsValue);
+                $dnsValue = self::dnsSqlite3Adapter($dnsValue);
             }
             //TODO: https://electrictoolbox.com/php-pdo-dsn-connection-string/
             
@@ -173,8 +173,9 @@ abstract class Environment
 
     /**
      * @param string $dnsValue
+     * @return string
      */
-    private static function dnsSqlite3Adapter(string &$dnsValue)
+    public static function dnsSqlite3Adapter(string $dnsValue): string
     {
         if(!extension_loaded('sqlite3'))
         {
@@ -198,6 +199,7 @@ abstract class Environment
             }
             $dnsValue = realpath($dnsValue);                
         }
+        return $dnsValue;
     }
 
     /**
