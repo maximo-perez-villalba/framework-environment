@@ -17,13 +17,20 @@ abstract class Environment
     /**
      * @param string|null $pathConfig
      */
-    static public function init(string $pathConfig = null)
+    static public function init(string $pathConfig = null, string $rootPath = null)
     {
         /*
          * Recupera la ruta del archivo que invoca a Environment::init().
          */
-        $backtrace = debug_backtrace( DEBUG_BACKTRACE_PROVIDE_OBJECT, 1 );
-        self::$rootPath = dirname($backtrace[ 0 ][ 'file' ]);
+        if(isset($rootPath))
+        {
+            self::$rootPath = $rootPath;
+        }
+        else
+        {
+            $backtrace = debug_backtrace( DEBUG_BACKTRACE_PROVIDE_OBJECT, 1 );
+            self::$rootPath = dirname($backtrace[ 0 ][ 'file' ]);
+        }
 
         if(isset($pathConfig))
         {
@@ -81,9 +88,9 @@ abstract class Environment
     }
 
     /**
-     * @param bool|string|array|object|null $value
+     * @param mixed $value
      */
-    public static function log(bool|string|array|object|null $value)
+    public static function log(mixed $value)
     {
         //Print call log method
         $backtrace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);

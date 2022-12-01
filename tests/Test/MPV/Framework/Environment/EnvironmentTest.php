@@ -31,6 +31,16 @@ class EnvironmentTest extends TestCase
         $this->assertEquals(__FILE__, Env::path('/EnvironmentTest.php'));
     }
     
+    public function testInitPathCustom()
+    {
+        $rootPath = TXT::create(__DIR__)->firstPart('/tests');
+        Env::init(null, $rootPath);
+        
+        $fullPath = Env::path('/tests/resources/app-config-php-error-log-exception.php');
+        
+        $this->assertTrue(file_exists($fullPath));
+    }
+    
     public function testInitThrowFilePathNotExists()
     {
         $this->expectException(EnvConfigException::class); 
